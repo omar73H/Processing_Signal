@@ -1,0 +1,31 @@
+% Project part a 1       //y is discrete
+%subplot(2,1,1);
+%title('Wrongly Scaled');
+%plot(y); % the audio graph with the wrong time scaling
+
+% the correct scaling
+Ts = 1/Fs; % The sampling interval (Time Step)
+N = length(y)-1; % number of samples - 1 (because we will start with 0)
+t = 0 : Ts : N*Ts ; % The correct time scaling
+%subplot(2,1,2);
+%title('Correctly Scaled');
+%plot(t,y); % the audio graph with the correct time scaling
+
+% Project part a 2
+[fk,x] = fft_signals_project(Fs,y);
+subplot(3,1,1);
+plot(fk,x);
+
+% Project signals part b making noise
+y_m = y' + 0.1*cos(2*pi*50*7*t) + 0.1*cos(2*pi*75*8*t) + 0.1*cos(2*pi*500*5*t); % 350 ,, 600 ,, 2500
+[fk_m,x_m]= fft_signals_project(Fs,y_m);
+subplot(3,1,2);
+plot(fk_m,x_m);
+
+fdatool;
+
+y_filter2=filter(Hd2,y_filter1);
+[fk_filter2,x_filter2]=fft_signals_project(Fs,y_filter2);
+subplot(3,1,3);
+plot(fk_filter2,x_filter2);
+sound(y_filter2);
